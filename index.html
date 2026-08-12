@@ -175,14 +175,23 @@
   .info-card p{color:var(--muted);font-size:14.5px;}
 
   /* Reviews */
-  .reviews-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--line);}
-  @media(max-width:960px){.reviews-grid{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:520px){.reviews-grid{grid-template-columns:1fr;}}
-  .review-card{background:#fff;}
-  .review-img{aspect-ratio:3/4;overflow:hidden;background:#f4f3f1;}
-  .review-img img{width:100%;height:100%;object-fit:cover;object-position:top center;}
-  .review-body{padding:18px 16px 36px;}
-  .review-text{font-size:13.5px;color:var(--ink);line-height:1.6;}
+  .reviews-row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;-webkit-overflow-scrolling:touch;}
+  .reviews-row::-webkit-scrollbar{height:5px;}
+  .reviews-row::-webkit-scrollbar-thumb{background:var(--line);}
+  .review-card{flex:0 0 190px;scroll-snap-align:start;background:#fff;border:1px solid var(--line);}
+  .review-photo{position:relative;aspect-ratio:4/5;overflow:hidden;background:#f4f3f1;}
+  .review-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;display:none;}
+  .review-photo img.active{display:block;}
+  .review-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;cursor:pointer;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;font-size:13px;color:#111;}
+  .review-arrow.prev{left:5px;}
+  .review-arrow.next{right:5px;}
+  .review-dots{position:absolute;bottom:6px;left:0;right:0;display:flex;justify-content:center;gap:4px;}
+  .review-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.6);}
+  .review-dot.active{background:#fff;}
+  .review-body{padding:10px 10px 14px;}
+  .review-card.no-photo .review-body{padding-top:14px;}
+  .review-hearts{font-size:10px;letter-spacing:2px;margin-bottom:6px;color:#111;}
+  .review-text{font-size:11.5px;line-height:1.5;color:var(--ink);}
 
   /* Footer */
   footer{background:var(--ink);color:#fff;padding:72px 32px 32px;}
@@ -282,40 +291,79 @@
   <div class="wrap">
     <div class="section-head">
       <div class="section-title">Отзывы</div>
-      <p class="section-sub">Фото и слова покупательниц — без редактуры.</p>
+      <p class="section-sub">Слова покупательниц — без редактуры.</p>
     </div>
-    <div class="reviews-grid">
+    <div class="reviews-row">
       <div class="review-card">
-        <div class="review-img"><img src="review-1.png" alt="Отзыв покупательницы" loading="lazy"></div>
-        <div class="review-body"><p class="review-text">Платья пушка! Прям вот пушка) Очень хорошее качество! Можно носить самостоятельно, можно собирать луки. Бесконечно довольна! В магазине стоило бы тысяч 8–9 не меньше, собственно оно так и выглядит! Очень рекомендую к покупке! Мой размер 52–54 (плечи) — село идеально, не жмёт, не давит)</p></div>
+        <div class="review-photo">
+          <img src="review-1.png" class="active" alt="Отзыв покупательницы">
+          <img src="review-2.png" alt="Отзыв покупательницы">
+          <img src="review-3.png" alt="Отзыв покупательницы">
+          <img src="review-4.png" alt="Отзыв покупательницы">
+          <div class="review-arrow prev" data-dir="-1">‹</div>
+          <div class="review-arrow next" data-dir="1">›</div>
+          <div class="review-dots"><div class="review-dot active"></div><div class="review-dot"></div><div class="review-dot"></div><div class="review-dot"></div></div>
+        </div>
+        <div class="review-body">
+          <div class="review-hearts">♥♥♥♥♥</div>
+          <p class="review-text">Платья пушка! Прям вот пушка) Очень хорошее качество! Можно носить самостоятельно, можно собирать луки. Бесконечно довольна! В магазине стоило бы тысяч 8–9 не меньше, собственно оно так и выглядит! Мой размер 52–54 (плечи) — село идеально, не жмёт, не давит)</p>
+        </div>
+      </div>
+      <div class="review-card no-photo">
+        <div class="review-body">
+          <div class="review-hearts">♥♥♥♥♥</div>
+          <p class="review-text">Классное платье, то что искала! Мне очень понравилось! Сидит по фигуре.</p>
+        </div>
+      </div>
+      <div class="review-card no-photo">
+        <div class="review-body">
+          <div class="review-hearts">♥♥♥♥♥</div>
+          <p class="review-text">Материал, аккуратное кружево, идеально село по фигуре. Выглядит дорого и очень женственно. Для отпуска и летних прогулок — просто находка.</p>
+        </div>
+      </div>
+      <div class="review-card no-photo">
+        <div class="review-body">
+          <div class="review-hearts">♥♥♥♥♥</div>
+          <p class="review-text">Шикарная ткань, очень дорого выглядит. Удобное. Доставка быстрая.</p>
+        </div>
+      </div>
+      <div class="review-card no-photo">
+        <div class="review-body">
+          <div class="review-hearts">♥♥♥♥♥</div>
+          <p class="review-text">Сел идеально, как на фото, ткань немного тянется, очень стильный.</p>
+        </div>
       </div>
       <div class="review-card">
-        <div class="review-img"><img src="review-2.png" alt="Отзыв покупательницы" loading="lazy"></div>
-        <div class="review-body"><p class="review-text">Классное платье, то что искала! Мне очень понравилось! Сидит по фигуре.</p></div>
+        <div class="review-photo">
+          <img src="review-5.png" class="active" alt="Отзыв покупательницы">
+          <img src="review-6.png" alt="Отзыв покупательницы">
+          <div class="review-arrow prev" data-dir="-1">‹</div>
+          <div class="review-arrow next" data-dir="1">›</div>
+          <div class="review-dots"><div class="review-dot active"></div><div class="review-dot"></div></div>
+        </div>
+        <div class="review-body">
+          <div class="review-hearts">♥♥♥♥♥</div>
+          <p class="review-text">Качественный топ, удобная застёжка, смотрится супер, идёт размер в размер.</p>
+        </div>
       </div>
       <div class="review-card">
-        <div class="review-img"><img src="review-3.png" alt="Отзыв покупательницы" loading="lazy"></div>
-        <div class="review-body"><p class="review-text">Материал, аккуратное кружево, идеально село по фигуре. Выглядит дорого и очень женственно. Для отпуска и летних прогулок — просто находка. Осталась очень довольна покупкой!</p></div>
+        <div class="review-photo">
+          <img src="review-7.png" class="active" alt="Отзыв покупательницы">
+          <img src="review-8.png" alt="Отзыв покупательницы">
+          <div class="review-arrow prev" data-dir="-1">‹</div>
+          <div class="review-arrow next" data-dir="1">›</div>
+          <div class="review-dots"><div class="review-dot active"></div><div class="review-dot"></div></div>
+        </div>
+        <div class="review-body">
+          <div class="review-hearts">♥♥♥♥♥</div>
+          <p class="review-text">Блуза шикарная, на мой не маленький размер — сел идеально, я даже выгляжу стройнее! ❤️</p>
+        </div>
       </div>
-      <div class="review-card">
-        <div class="review-img"><img src="review-4.png" alt="Отзыв покупательницы" loading="lazy"></div>
-        <div class="review-body"><p class="review-text">Шикарная ткань, очень дорого выглядит. Удобное. Доставка быстрая.</p></div>
-      </div>
-      <div class="review-card">
-        <div class="review-img"><img src="review-5.png" alt="Отзыв покупательницы" loading="lazy"></div>
-        <div class="review-body"><p class="review-text">Сел идеально, как на фото, ткань немного тянется, очень стильный.</p></div>
-      </div>
-      <div class="review-card">
-        <div class="review-img"><img src="review-6.png" alt="Отзыв покупательницы" loading="lazy"></div>
-        <div class="review-body"><p class="review-text">Качественный топ, удобная застёжка, смотрится супер, идёт размер в размер.</p></div>
-      </div>
-      <div class="review-card">
-        <div class="review-img"><img src="review-7.png" alt="Отзыв покупательницы" loading="lazy"></div>
-        <div class="review-body"><p class="review-text">Блуза шикарная, на мой не маленький размер — сел идеально, я даже выгляжу стройнее! Рекомендую к покупке ❤️</p></div>
-      </div>
-      <div class="review-card">
-        <div class="review-img"><img src="review-8.png" alt="Отзыв покупательницы" loading="lazy"></div>
-        <div class="review-body"><p class="review-text">Костюм супер, если бы можно было поставить 100 баллов, я бы поставила!</p></div>
+      <div class="review-card no-photo">
+        <div class="review-body">
+          <div class="review-hearts">♥♥♥♥♥</div>
+          <p class="review-text">Костюм супер, если бы можно было поставить 100 баллов, я бы поставила!</p>
+        </div>
       </div>
     </div>
   </div>
@@ -501,6 +549,26 @@ function openModal(n){
   overlay.classList.add('open');
 }
 function closeModal(){ overlay.classList.remove('open'); modalBox.innerHTML=''; }
+
+// Review photo carousels
+document.querySelectorAll('.review-photo').forEach(box => {
+  const imgs = box.querySelectorAll('img');
+  const dots = box.querySelectorAll('.review-dot');
+  let cur = 0;
+  function show(idx){
+    imgs[cur].classList.remove('active');
+    dots.length && dots[cur].classList.remove('active');
+    cur = (idx + imgs.length) % imgs.length;
+    imgs[cur].classList.add('active');
+    dots.length && dots[cur].classList.add('active');
+  }
+  box.querySelectorAll('.review-arrow').forEach(arrow => {
+    arrow.addEventListener('click', (e) => {
+      e.preventDefault();
+      show(cur + parseInt(arrow.dataset.dir));
+    });
+  });
+});
 </script>
 
 </body>
