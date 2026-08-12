@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NastyaRAISKAYA — женская одежда</title>
+<meta name="description" content="Платья, блузки, костюмы и трикотаж. Размеры 40–56. Отправляем по всей России.">
+<style>
+  :root{
+    --ink:#111;
+    --paper:#fff;
+    --muted:#767676;
+    --line:#e2e2e2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 32px;}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:#fff;
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 32px;max-width:1320px;margin:0 auto;
+  }
+  .logo{font-family:Georgia,'Times New Roman',serif;font-size:24px;letter-spacing:3px;font-weight:700;}
+  nav{display:flex;gap:30px;font-size:13px;letter-spacing:.5px;text-transform:uppercase;}
+  nav a:hover{color:var(--muted);}
+  .contacts{display:flex;gap:14px;font-size:12px;text-transform:uppercase;letter-spacing:.5px;}
+  .contacts a{border:1px solid var(--ink);padding:9px 16px;transition:.2s;}
+  .contacts a:hover{background:var(--ink);color:#fff;}
+  @media(max-width:820px){
+    nav{display:none;}
+    .contacts a span{display:none;}
+    .contacts a{padding:9px 12px;}
+  }
+
+  /* Hero */
+  .hero{
+    position:relative;height:86vh;min-height:520px;max-height:820px;
+    display:flex;align-items:flex-end;
+    background:#111;
+    overflow:hidden;
+  }
+  .hero img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;
+    filter:brightness(.72);
+  }
+  .hero-content{position:relative;z-index:2;padding:0 32px 64px;color:#fff;max-width:1320px;margin:0 auto;width:100%;}
+  .badge{
+    display:inline-block;font-size:11px;letter-spacing:2px;text-transform:uppercase;
+    border:1px solid rgba(255,255,255,.6);padding:7px 16px;margin-bottom:26px;
+  }
+  .hero h1{
+    font-size:clamp(34px,6vw,72px);font-weight:700;line-height:1.05;text-transform:uppercase;
+    max-width:760px;margin:0 0 18px;letter-spacing:-.5px;
+  }
+  .hero p{max-width:480px;margin:0 0 32px;font-size:16px;color:#e8e8e8;}
+  .btn{
+    display:inline-block;background:transparent;color:#fff;border:1px solid #fff;
+    padding:15px 38px;font-size:12px;letter-spacing:2px;text-transform:uppercase;
+    transition:.2s;
+  }
+  .btn:hover{background:#fff;color:#111;}
+  .btn-dark{border-color:var(--ink);color:var(--ink);}
+  .btn-dark:hover{background:var(--ink);color:#fff;}
+
+  /* Marquee */
+  .marquee{
+    border-bottom:1px solid var(--line);
+    padding:14px 0;overflow:hidden;white-space:nowrap;background:#111;
+  }
+  .marquee-track{display:inline-block;animation:scroll 30s linear infinite;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff;}
+  .marquee-track span{margin:0 22px;}
+  @keyframes scroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+  /* Section titles */
+  .section{padding:96px 32px;}
+  .section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:44px;flex-wrap:wrap;gap:12px;}
+  .section-title{
+    font-size:clamp(24px,3vw,34px);font-weight:700;letter-spacing:-.5px;text-transform:uppercase;
+  }
+  .section-sub{color:var(--muted);font-size:14.5px;max-width:520px;}
+
+  /* Catalog grid */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--line);}
+  @media(max-width:960px){.grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:520px){.grid{grid-template-columns:1fr;}}
+  .card{background:#fff;}
+  .card-img{position:relative;aspect-ratio:3/4;overflow:hidden;background:#f2f2f2;}
+  .card-img img{width:100%;height:100%;object-fit:cover;object-position:top center;display:none;}
+  .card-img img.active{display:block;}
+  .card-arrow{
+    position:absolute;top:0;bottom:0;width:34%;z-index:3;cursor:pointer;
+    display:flex;align-items:center;opacity:0;transition:.15s;font-size:20px;color:#fff;
+    text-shadow:0 1px 4px rgba(0,0,0,.5);
+  }
+  .card-img:hover .card-arrow{opacity:1;}
+  .card-arrow.prev{left:0;justify-content:flex-start;padding-left:10px;}
+  .card-arrow.next{right:0;justify-content:flex-end;padding-right:10px;}
+  .card-dots{position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:center;gap:5px;z-index:3;}
+  .card-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.55);}
+  .card-dot.active{background:#fff;}
+  .card-body{padding:18px 4px 40px;}
+  .card-name{font-size:14px;font-weight:600;margin-bottom:2px;}
+  .card-color{font-size:13px;color:var(--muted);margin-bottom:8px;}
+  .card-price{font-size:14.5px;font-weight:600;margin-bottom:14px;}
+  .card-sizes{font-size:11px;color:var(--muted);margin-bottom:16px;letter-spacing:.3px;}
+  .card-cta{
+    display:inline-block;border:1px solid var(--ink);
+    padding:11px 20px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;transition:.2s;
+  }
+  .card-cta:hover{background:var(--ink);color:#fff;}
+
+  /* New badge */
+  .new-tag{position:absolute;top:10px;left:10px;background:#111;color:#fff;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 9px;z-index:3;}
+
+  /* Sizes */
+  .sizes-box{border:1px solid var(--line);padding:48px;}
+  .sizes-box p{margin-bottom:14px;color:var(--muted);font-size:15px;max-width:680px;}
+  .sizes-range{font-size:44px;font-weight:700;margin-bottom:18px;letter-spacing:-1px;}
+
+  /* Delivery */
+  .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  @media(max-width:820px){.info-grid{grid-template-columns:1fr;}}
+  .info-card{background:#fff;padding:36px;}
+  .info-card h3{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;}
+  .info-card p{color:var(--muted);font-size:14.5px;}
+
+  /* Footer */
+  footer{background:var(--ink);color:#fff;padding:72px 32px 32px;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;margin-bottom:56px;}
+  @media(max-width:720px){.footer-grid{grid-template-columns:1fr;gap:28px;}}
+  .footer-logo{font-family:Georgia,serif;font-size:22px;letter-spacing:3px;font-weight:700;margin-bottom:14px;}
+  .footer-desc{color:#a3a3a3;font-size:14px;max-width:280px;}
+  .footer-col h4{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#a3a3a3;margin-bottom:18px;}
+  .footer-col a,.footer-col p{display:block;color:#e5e5e5;font-size:14.5px;margin-bottom:10px;}
+  .footer-col a:hover{color:#fff;}
+  .footer-bottom{border-top:1px solid #333;padding-top:24px;font-size:12px;color:#7d7d7d;line-height:1.7;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">NASTYARAISKAYA</div>
+    <nav>
+      <a href="#catalog">Каталог</a>
+      <a href="#sizes">Размеры</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <div class="contacts">
+      <a href="tel:+79955010906">📞 <span>+7 995 501-09-06</span></a>
+      <a href="https://t.me/slyzba_zaboti" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://wa.me/79955010906" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <img src="17_1.jpg" alt="NastyaRAISKAYA">
+  <div class="hero-content">
+    <div class="badge">Новая коллекция</div>
+    <h1>Одежда, в которой хочется быть собой</h1>
+    <p>Платья, блузки, костюмы и трикотаж для тех, кто одевается для себя, а не по случаю. Размеры 40–56, отправляем по всей России.</p>
+    <a href="#catalog" class="btn">Смотреть каталог</a>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Отправляем по всей России</span><span>·</span>
+    <span>Оплата картой</span><span>·</span>
+    <span>Размеры 40–56</span><span>·</span>
+    <span>Поможем подобрать размер</span><span>·</span>
+    <span>Отправляем по всей России</span><span>·</span>
+    <span>Оплата картой</span><span>·</span>
+    <span>Размеры 40–56</span><span>·</span>
+    <span>Поможем подобрать размер</span><span>·</span>
+  </div>
+</div>
+
+<section class="section" id="catalog">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Каталог</div>
+        <p class="section-sub">23 модели в наличии. Листайте фото на карточке — разные позы и посадка. «Узнать наличие» ведёт в мессенджер, менеджер уточнит размер.</p>
+      </div>
+    </div>
+    <div class="grid" id="catalog-grid"></div>
+  </div>
+</section>
+
+<section class="section" id="sizes" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-title" style="margin-bottom:44px;">Размеры</div>
+    <div class="sizes-box">
+      <div class="sizes-range">40–56</div>
+      <p>Работаем в российской размерной сетке. Точные размеры в наличии указаны у каждой позиции в каталоге.</p>
+      <p>Сомневаетесь с выбором — напишите в Telegram или WhatsApp, поможем подобрать размер перед заказом.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contacts" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-title" style="margin-bottom:44px;">Доставка, оплата, заказ</div>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>Доставка</h3>
+        <p>Отправляем СДЭК по всей России. Стоимость и сроки уточняем при оформлении заказа.</p>
+      </div>
+      <div class="info-card">
+        <h3>Оплата</h3>
+        <p>Банковской картой.</p>
+      </div>
+      <div class="info-card">
+        <h3>Как заказать</h3>
+        <p>Напишите в Telegram или WhatsApp — поможем выбрать размер, подтвердим наличие и согласуем доставку.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">NASTYARAISKAYA</div>
+        <p class="footer-desc">Женская одежда для тех, кто одевается для себя.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Каталог</h4>
+        <a href="#catalog">Платья</a>
+        <a href="#catalog">Блузки</a>
+        <a href="#catalog">Брюки</a>
+        <a href="#catalog">Трикотаж</a>
+        <a href="#catalog">Все товары</a>
+      </div>
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <a href="https://t.me/slyzba_zaboti" target="_blank" rel="noopener">Telegram</a>
+        <a href="https://wa.me/79955010906" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="tel:+79955010906">+7 995 501-09-06</a>
+        <p>Пн–пт, 10:00–19:00</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      ИП Райская Анастасия Владимировна · ИНН 645111909032 · ОГРНИП 322645700043130
+    </div>
+  </div>
+</footer>
+
+<script>
+const products = [
+  {n:1,  imgs:["1_1.jpg"],  name:"Платье-комбинация",                       color:"Чёрный",                 price:"4 000 ₽", sizes:"40,42,44,46,48,50,52"},
+  {n:2,  imgs:["2_1.jpg"],  name:"Платье-комбинация",                       color:"Айвори",                  price:"4 000 ₽", sizes:"40,42,44,46,48,50,52"},
+  {n:3,  imgs:["3_1.jpg","3_2.jpg","3_3.jpg","3_4.jpg"],  name:"Блузка",     color:"Шоколадный",              price:"4 000 ₽", sizes:"42-44,46-48,50-52,54-56"},
+  {n:4,  imgs:["4_1.jpg","4_2.jpg","4_3.jpg"],  name:"Блузка",               color:"Оливковый",               price:"4 000 ₽", sizes:"42-44,46-48,50-52,54-56"},
+  {n:5,  imgs:["5_1.jpg","5_2.jpg","5_3.jpg","5_4.jpg"],  name:"Блузка",     color:"Чёрный",                  price:"4 000 ₽", sizes:"42-44,46-48,50-52,54-56"},
+  {n:6,  imgs:["6_1.jpg","6_2.jpg","6_3.jpg","6_4.jpg"],  name:"Брюки алладины", color:"Красный",             price:"3 000 ₽", sizes:"40,42,44,46,48,50"},
+  {n:7,  imgs:["7_1.jpg"],  name:"Брюки алладины",                          color:"Серый",                   price:"3 000 ₽", sizes:"40,42,44,46,48,50"},
+  {n:8,  imgs:["8_1.jpg"],  name:"Джемпер",                                 color:"Розовый",                 price:"4 000 ₽", sizes:"40,42,44,46,48,50"},
+  {n:9,  imgs:["9_1.jpg"],  name:"Джемпер",                                 color:"Серый",                   price:"4 000 ₽", sizes:"40,42,44,46,48,50"},
+  {n:10, imgs:["10_1.jpg"], name:"Куртка-бомбер",                           color:"Розовый",                 price:"8 000 ₽", sizes:"40,42,44,46,48,50"},
+  {n:11, imgs:["11_1.jpg"], name:"Куртка-бомбер",                           color:"Бежевый",                 price:"8 000 ₽", sizes:"40,42,44,46,48,50"},
+  {n:12, imgs:["12_1.jpg","12_2.jpg","12_3.jpg"], name:"Лонгслив",          color:"Леопардовый принт",       price:"3 000 ₽", sizes:"40,42,44,46,48"},
+  {n:13, imgs:["13_1.jpg","13_2.jpg","13_3.jpg","13_4.jpg","13_5.jpg","13_6.jpg","13_7.jpg","13_8.jpg"], name:"Платье-комбинация с принтом «вишенка»", color:"Чёрный", price:"4 000 ₽", sizes:"40,42,44,46,48,50,52"},
+  {n:14, imgs:["14_1.jpg","14_2.jpg","14_3.jpg","14_4.jpg","14_5.jpg","14_6.jpg","14_7.jpg","14_8.jpg","14_9.jpg","14_10.jpg","14_11.jpg","14_12.jpg","14_13.jpg"], name:"Платье-комбинация с принтом «вишенка»", color:"Айвори", price:"4 000 ₽", sizes:"40,42,44,46,48,50,52"},
+  {n:15, imgs:["15_1.jpg","15_2.jpg","15_3.jpg","15_4.jpg","15_5.jpg","15_6.jpg"], name:"Платье с высоким горлом", color:"Хаки", price:"4 500 ₽", sizes:"40,42,44,46,48"},
+  {n:16, imgs:["16_1.jpg","16_2.jpg","16_3.jpg","16_4.jpg","16_5.jpg"], name:"Платье с высоким горлом", color:"Коричневый", price:"4 500 ₽", sizes:"40,42,44,46,48"},
+  {n:17, imgs:["17_1.jpg","17_2.jpg","17_3.jpg","17_4.jpg","17_5.jpg"], name:"Платье с высоким горлом", color:"Чёрный", price:"4 500 ₽", sizes:"40,42,44,46,48"},
+  {n:18, imgs:["18_1.jpg","18_2.jpg"], name:"Футболка с принтом",           color:"Тёмно-серый (варёнка)",   price:"3 000 ₽", sizes:"42,44,46,48"},
+  {n:19, imgs:["19_1.jpg","19_2.jpg","19_3.jpg","19_4.jpg","19_5.jpg","19_6.jpg"], name:"Кардиган с меховым воротником", color:"Розовый", price:"8 000 ₽", sizes:"40,42,44,46,48", isNew:true},
+  {n:20, imgs:["20_1.jpg","20_2.jpg","20_3.jpg","20_4.jpg","20_5.jpg"], name:"Кардиган с меховым воротником", color:"Хаки", price:"8 000 ₽", sizes:"40,42,44,46,48", isNew:true},
+  {n:21, imgs:["21_1.jpg","21_2.jpg"], name:"Плюшевая куртка",              color:"Розовый",                 price:"8 000 ₽", sizes:"40,42,44,46,48", isNew:true},
+  {n:22, imgs:["22_1.jpg","22_2.jpg","22_3.jpg","22_4.jpg","22_5.jpg"], name:"Костюм для дома (футболка + брюки)", color:"Серый меланж", price:"8 000 ₽", sizes:"40,42,44,46,48", isNew:true},
+  {n:23, imgs:["23_1.jpg","23_2.jpg","23_3.jpg"], name:"Топ + юбка миди",   color:"Чёрный / карамельный",    price:"8 000 ₽", sizes:"40,42,44,46,48", isNew:true},
+];
+
+const grid = document.getElementById('catalog-grid');
+
+grid.innerHTML = products.map(p => {
+  const imgsHtml = p.imgs.map((im,i) => `<img src="${im}" class="${i===0?'active':''}" data-idx="${i}" alt="${p.name}, ${p.color}" loading="lazy">`).join('');
+  const hasMulti = p.imgs.length > 1;
+  const arrows = hasMulti ? `<div class="card-arrow prev" data-dir="-1">‹</div><div class="card-arrow next" data-dir="1">›</div>` : '';
+  const dots = hasMulti ? `<div class="card-dots">${p.imgs.map((_,i)=>`<div class="card-dot ${i===0?'active':''}"></div>`).join('')}</div>` : '';
+  const newTag = p.isNew ? `<div class="new-tag">Новинка</div>` : '';
+  return `
+  <div class="card" data-n="${p.n}">
+    <div class="card-img">
+      ${newTag}
+      ${imgsHtml}
+      ${arrows}
+      ${dots}
+    </div>
+    <div class="card-body">
+      <div class="card-name">${p.name}</div>
+      <div class="card-color">${p.color}</div>
+      <div class="card-price">${p.price}</div>
+      <div class="card-sizes">Размеры: ${p.sizes}</div>
+      <a class="card-cta" href="https://t.me/slyzba_zaboti" target="_blank" rel="noopener">Узнать наличие</a>
+    </div>
+  </div>
+`;
+}).join('');
+
+// carousel logic
+grid.querySelectorAll('.card').forEach(card => {
+  const imgs = card.querySelectorAll('.card-img img');
+  const dots = card.querySelectorAll('.card-dot');
+  let cur = 0;
+  function show(idx){
+    imgs[cur].classList.remove('active');
+    dots.length && dots[cur].classList.remove('active');
+    cur = (idx + imgs.length) % imgs.length;
+    imgs[cur].classList.add('active');
+    dots.length && dots[cur].classList.add('active');
+  }
+  card.querySelectorAll('.card-arrow').forEach(arrow => {
+    arrow.addEventListener('click', (e) => {
+      e.preventDefault();
+      show(cur + parseInt(arrow.dataset.dir));
+    });
+  });
+});
+</script>
+
+</body>
+</html>
